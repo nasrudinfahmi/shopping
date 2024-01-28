@@ -1,5 +1,5 @@
 import { Suspense } from "react"
-import Herobanner from '../../../assets/banner/hero-banner.webp'
+import Herobanner from '../../../../assets/banner/hero-banner.webp'
 import { Link } from "react-router-dom"
 
 function HeroBanner() {
