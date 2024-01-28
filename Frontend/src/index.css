@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.shadow-navbottom {
+  box-shadow: 0 -1px 8px -1px #f1f5f9;
+}
+
+.shadow-navtop {
+  box-shadow: 0 1px 8px -2.5px #f1f5f9;
+}
+
+.padding-inline {
+  @apply px-1 sm:px-6 md:px-8;
+}
+
+.border-t-sect {
+  @apply bg-gradient-to-b from-white to-neutral-100/70 pt-3 px-2 rounded-t-lg;
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  @apply h-0 hidden lg:h-2 lg:block;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  @apply bg-slate-100 rounded-full;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400/70 rounded-full;
+}

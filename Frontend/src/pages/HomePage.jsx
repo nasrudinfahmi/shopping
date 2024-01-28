@@ -1,6 +1,15 @@
+import HeroBanner from "../components/fragments/HeroBanner/HeroBanner"
+import CategoriesSect from "../components/fragments/Categories/CategoriesSect"
+import RecomSect from "../components/fragments/recommendation/RecomSect"
+import PageLayout from "../components/layouts/PageLayout"
+
 function HomePage() {
   return (
-    <h1>Home page</h1>
+    <PageLayout>
+      <HeroBanner />
+      <CategoriesSect />
+      <RecomSect />
+    </PageLayout>
   )
 }
 
