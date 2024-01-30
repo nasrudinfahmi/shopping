@@ -18,6 +18,32 @@
   @apply bg-gradient-to-b from-white to-neutral-100/70 pt-3 px-2 rounded-t-lg;
 }
 
+.custom-line::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(85%);
+  display: block;
+  width: 40%;
+  height: 1px;
+  border-radius: 100px;
+  background-color: rgb(51 65 85);
+}
+
+.custom-line::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(85%);
+  display: block;
+  width: 40%;
+  height: 1px;
+  border-radius: 100px;
+  background-color: rgb(51 65 85);
+}
+
 .scrollbar-custom::-webkit-scrollbar {
   @apply h-0 hidden lg:h-2 lg:block;
 }
