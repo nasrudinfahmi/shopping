@@ -1,12 +1,30 @@
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import NotifIcon from '../../../../assets/icons/notification.svg'
 import CartIcon from '../../../../assets/icons/cart.svg'
 import UserIcon from '../../../../assets/icons/user.svg'
 import Logo from '../../../elements/Logo'
 import { useResizeWindow } from '../../../../hooks'
+import { useEffect, useState } from 'react'
 
 function NavbarTop() {
   const { windowWidth } = useResizeWindow()
+
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchValue, setSearchValue] = useState(searchParams.get('product') || '')
+
+  const onChangeSearchInput = (e) => {
+    const searchKeyword = e.target.value.toLowerCase()
+    if (searchKeyword.trim() === '') {
+      setSearchParams('')
+    } else {
+      setSearchParams({ product: searchKeyword.trim() })
+    }
+    setSearchValue(searchKeyword)
+  }
+
+  useEffect(() => {
+    if (!searchParams.get('product')) setSearchValue('')
+  }, [searchParams])
 
   return (
     <nav className="z-[9999999] fixed top-0 w-full flex items-center gap-4 sm:gap-8 padding-inline py-2 sm:py-3 shadow-navtop border-b border-b-slate-200/40 bg-white">
@@ -26,6 +44,9 @@ function NavbarTop() {
           type="search"
           placeholder="Cari di shopping"
           aria-label="Cari produk di shopping"
+          onChange={(e) => onChangeSearchInput(e)}
+          value={searchValue}
+          autoComplete='off'
           spellCheck={false}
           id='search'
           className="shrink border-none w-full outline outline-1 outline-slate-400 rounded-xl py-1 px-3 sm:px-4 focus:outline-teal-500 focus:shadow-sm"

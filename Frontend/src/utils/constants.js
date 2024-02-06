@@ -64,4 +64,79 @@ const AUTH_FORM_CONSTANTS = {
   ],
 };
 
-export { NAVBAR_BOTTOM, CATEGORIES_HOME, AUTH_FORM_CONSTANTS };
+let DATA_DUMMY_CARTS = {
+  userId123: {
+    totalCart: 4,
+    carts: [
+      {
+        idSeller: "111",
+        sellerName: "Toko makmur",
+        products: [
+          {
+            idProduct: "b1",
+            productName: "Baju bagus sekali",
+            imgThumb: ManFashionImg,
+            qty: 5,
+            price: 1000,
+            totalPrice: 5000,
+            variasi: "merah, xl",
+            isChecked: false,
+          },
+          {
+            idProduct: "b2",
+            productName: "jaket bagus",
+            imgThumb: ManFashionImg,
+            qty: 10,
+            price: 2000,
+            totalPrice: 20000,
+            variasi: "green forest, xl",
+            isChecked: true,
+          },
+          {
+            idProduct: "b3",
+            productName: "kaos oblong",
+            imgThumb: ManFashionImg,
+            qty: 2,
+            price: 1000,
+            totalPrice: 2000,
+            variasi: "green forest, xl",
+            isChecked: true,
+          },
+        ],
+      },
+      {
+        idSeller: "222",
+        sellerName: "Toko abadi jaya",
+        products: [
+          {
+            idProduct: "c1",
+            productName: "Celana kolor",
+            imgThumb: ManFashionImg,
+            qty: 1,
+            price: 110000,
+            totalPrice: 110000,
+            variasi: "abu tua, xl",
+            isChecked: true,
+          },
+          {
+            idProduct: "c2",
+            productName: "celana jeans",
+            imgThumb: ManFashionImg,
+            qty: 3,
+            price: 330000,
+            totalPrice: 330000,
+            variasi: "hitam, 33",
+            isChecked: true,
+          },
+        ],
+      },
+    ],
+  },
+};
+
+export {
+  NAVBAR_BOTTOM,
+  CATEGORIES_HOME,
+  AUTH_FORM_CONSTANTS,
+  DATA_DUMMY_CARTS,
+};
