@@ -14,6 +14,14 @@ import EmailIcon from "../assets/icons/email.svg";
 import PadlockIcon from "../assets/icons/padlock.svg";
 import TelIcon from "../assets/icons/telIcon.svg";
 
+import DashboardIcon from "../assets/icons/Dashboard.svg";
+import ProductIcon from "../assets/icons/basket.svg";
+import UserIcon2 from "../assets/icons/user2.svg";
+import MailIcon from "../assets/icons/mail2.svg";
+import NotifIcon2 from "../assets/icons/notification2.svg";
+import SettingIcon from "../assets/icons/setting.svg";
+import LogoutIcon from "../assets/icons/logout.svg";
+
 const NAVBAR_BOTTOM = [
   { label: "Beranda", alt: "Ikon beranda", src: HomeIcon },
   { label: "Rekomendasi", alt: "Ikon rekomendasi", src: RecomIcon },
@@ -134,9 +142,20 @@ let DATA_DUMMY_CARTS = {
   },
 };
 
+const MENUS_ADMIN_SIDEBAR = [
+  { icon: DashboardIcon, alt: "ikon dashboard", text: "Dashboard" },
+  { icon: ProductIcon, alt: "ikon produk", text: "Produk" },
+  { icon: UserIcon2, alt: "ikon user", text: "Profil" },
+  { icon: MailIcon, alt: "ikon pesan", text: "Pesan" },
+  { icon: NotifIcon2, alt: "ikon notifikasi", text: "Notifikasi" },
+  { icon: SettingIcon, alt: "ikon pengaturan", text: "Pengaturan" },
+  { icon: LogoutIcon, alt: "ikon keluar", text: "Keluar" },
+];
+
 export {
   NAVBAR_BOTTOM,
   CATEGORIES_HOME,
   AUTH_FORM_CONSTANTS,
   DATA_DUMMY_CARTS,
+  MENUS_ADMIN_SIDEBAR,
 };

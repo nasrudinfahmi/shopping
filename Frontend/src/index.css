@@ -44,6 +44,14 @@
   background-color: rgb(51 65 85);
 }
 
+.sidebar-lg {
+  @apply lg:-translate-x-0 !important;
+}
+
+.background-black {
+  background-color: #1c2434;
+}
+
 .scrollbar-custom::-webkit-scrollbar {
   @apply h-0 hidden lg:h-2 lg:block;
 }

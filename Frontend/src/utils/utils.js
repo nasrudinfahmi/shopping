@@ -7,4 +7,11 @@ const formattedIDR = (price) => {
   return IDR.replace(",00", "");
 };
 
-export { formattedIDR };
+const getValueById = (idValue) => {
+  if (!idValue) return null;
+  const element = document.getElementById(idValue);
+
+  return element.value.trim();
+};
+
+export { formattedIDR, getValueById };

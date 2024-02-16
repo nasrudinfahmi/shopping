@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import { useContext } from "react"
+import { EditorContext } from "../context/editorjs/editorContext"
 
 const useResizeWindow = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
@@ -18,4 +20,9 @@ const useResizeWindow = () => {
   return { windowWidth }
 }
 
-export { useResizeWindow }
+const useEditor = () => {
+  const { initEditor, editorInstanceRef } = useContext(EditorContext)
+  return { initEditor, editorInstanceRef }
+}
+
+export { useResizeWindow, useEditor }

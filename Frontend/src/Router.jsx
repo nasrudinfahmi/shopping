@@ -4,6 +4,7 @@ import DetailProductPage from "./pages/DetailProductPage";
 import AuthPage from "./pages/AuthPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import CartProductPage from "./pages/CartProductPage";
+import AddProductPage from "./pages/seller/AddProductPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -13,6 +14,7 @@ const router = createBrowserRouter(
       <Route path="product/:idProduct" element={<DetailProductPage />} />
       <Route path="auth" element={<AuthPage />} />
       <Route path="cart" element={<CartProductPage />} />
+      <Route path="dashboard/new-product" element={<AddProductPage />} />
     </>
   )
 )
