@@ -16,16 +16,20 @@
     "@editorjs/paragraph": "^2.11.3",
     "@editorjs/underline": "^1.1.0",
     "@sotaproject/strikethrough": "^1.0.1",
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
     "editorjs-change-case": "^0.0.3",
     "editorjs-inline-tool": "^0.4.0",
     "editorjs-text-alignment-blocktune": "^1.0.3",
     "editorjs-tooltip": "^1.1.15",
     "editorjs-undo": "^2.0.26",
+    "firebase": "^10.6.0",
     "html-react-parser": "^5.1.2",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.3"
+    "react-router-dom": "^6.21.3",
+    "react-toastify": "^10.0.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

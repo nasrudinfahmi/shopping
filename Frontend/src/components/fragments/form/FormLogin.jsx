@@ -1,5 +1,4 @@
 import { AUTH_FORM_CONSTANTS } from '../../../utils/constants'
-import BtnSubmitAuth from '../../elements/BtnSubmitAuth'
 import InputForm from '../../elements/InputForm'
 
 function FormLogin() {
@@ -15,9 +14,6 @@ function FormLogin() {
         className='w-max self-end text-sm mt-1 text-blue-700'>
         Lupa password ?
       </button>
-      <BtnSubmitAuth>
-        Masuk
-      </BtnSubmitAuth>
     </>
   )
 }

@@ -152,10 +152,22 @@ const MENUS_ADMIN_SIDEBAR = [
   { icon: LogoutIcon, alt: "ikon keluar", text: "Keluar" },
 ];
 
+const FIREBASE_ERROR = [
+  {
+    error: "Firebase: Error (auth/email-already-in-use).",
+    message: "Email sudah terdaftar!",
+  },
+  {
+    error: "Firebase: Error (auth/invalid-login-credentials).",
+    message: "Email atau password salah!",
+  },
+];
+
 export {
   NAVBAR_BOTTOM,
   CATEGORIES_HOME,
   AUTH_FORM_CONSTANTS,
   DATA_DUMMY_CARTS,
   MENUS_ADMIN_SIDEBAR,
+  FIREBASE_ERROR,
 };
