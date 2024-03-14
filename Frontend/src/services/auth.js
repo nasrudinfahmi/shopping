@@ -6,7 +6,7 @@ import {
   loginGoogleClient,
   loginWithEmailAndPassword,
   registerWithEmailAndPassword,
-} from "../lib/firebase/service";
+} from "../lib/firebase/services/authFirebase";
 
 // login with google
 const loginGoogle = async () => await loginGoogleClient();

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useContext } from "react"
 import { EditorContext } from "../context/editorjs/editorContext"
 import { UserContext } from "../context/user/UserContext"
+import { SellerContext } from "../context/seller/SellerContext"
 
 const useResizeWindow = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
@@ -37,4 +38,9 @@ const useUser = () => {
   }
 }
 
-export { useResizeWindow, useEditor, useUser }
+const useSeller = () => {
+  const { seller, setSeller, loading } = useContext(SellerContext)
+  return { seller, setSeller, loading }
+}
+
+export { useResizeWindow, useEditor, useUser, useSeller }

@@ -52,10 +52,20 @@ const checkIsAllNullOrUndefined = (obj) => {
   return allValuesNullOrUndefined(obj);
 };
 
+// fungsi untuk generate random id
+const generateRandomId = () => {
+  const $1 = Math.random().toString(36).substring(2);
+  const $2 = Math.ceil(Math.random() * 36) * Math.round(Math.random() * 56789);
+  const $3 = (Math.ceil(Date.now() * Math.random()) * $2).toString(36);
+
+  return `${$1}${$2.toString(36)}${$3}`;
+};
+
 export {
   errorResponse,
   successResponse,
   validateIndonesianPhoneNumber,
   convertToIndonesianPhoneNumber,
   checkIsAllNullOrUndefined,
+  generateRandomId,
 };

@@ -1,5 +1,5 @@
 import NavBottomCartPage from "../components/fragments/navbar/NavbarBottom/NavBottomCartPage"
-import NavTopCartPage from "../components/fragments/navbar/NavbarTop/NavTopCartPage"
+import NavbarTop2 from "../components/fragments/navbar/NavbarTop/NavbarTop2"
 import { useResizeWindow } from "../hooks"
 import BtnQuantity from "../components/fragments/btnQuantity/BtnQuantity"
 import { DATA_DUMMY_CARTS } from '../utils/constants'
@@ -174,7 +174,12 @@ function CartProductPage() {
   return (
     <>
       <header>
-        {windowWidth < 1024 ? <NavTopCartPage /> : <NavbarTop />}
+        {windowWidth < 1024 ? (
+          <NavbarTop2>
+            Keranjang saya
+            <span className='font-normal text-slate-800 text-base'> (14)</span>
+          </NavbarTop2>
+        ) : <NavbarTop />}
         {windowWidth < 1024 && <NavBottomCartPage cartDataDummy={cartDataDummy} checkAll={checkAll} toggleCheckAll={toggleCheckAll} />}
       </header>
       <main className="bg-neutral-100/60 w-full min-h-screen padding-inline pt-16 sm:pt-20 lg:pt-24 pb-20">

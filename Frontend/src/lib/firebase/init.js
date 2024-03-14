@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -14,10 +15,12 @@ const app = initializeApp(firebaseConfig, "shopping app");
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
+const storage = getStorage(app);
+
 auth.useDeviceLanguage();
 provider.setDefaultLanguage();
 
 provider.addScope("https://www.googleapis.com/auth/userinfo.email");
 provider.addScope("https://www.googleapis.com/auth/userinfo.profile");
 
-export { auth, provider };
+export { auth, provider, storage };

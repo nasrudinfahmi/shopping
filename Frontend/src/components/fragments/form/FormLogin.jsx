@@ -5,7 +5,7 @@ function FormLogin() {
   return (
     <>
       {AUTH_FORM_CONSTANTS.LOGIN.map((input, index) => (
-        <InputForm key={index} {...input} />
+        <InputForm key={index} {...input} required={true} />
       ))}
 
       <button

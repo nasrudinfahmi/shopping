@@ -5,7 +5,7 @@ function FormRegister() {
   return (
     <>
       {AUTH_FORM_CONSTANTS.REGISTER.map((input, index) => (
-        <InputForm key={index} {...input} />
+        <InputForm key={index} {...input} required={true} />
       ))}
     </>
   )

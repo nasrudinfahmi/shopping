@@ -1,20 +1,19 @@
-import Logo from "../../elements/Logo"
-import BtnToggleAuthForm from "../../elements/BtnToggleAuthForm"
-import FormLogin from "./FormLogin"
-import FormRegister from "./FormRegister"
-import BtnLoginGoogle from "../../elements/BtnLoginGoogle"
-import BtnSubmitAuth from '../../elements/BtnSubmitAuth'
 import { useCallback, useEffect, useState } from "react"
-import { handleAuthUser } from "../../../services/auth"
-import { Bounce, ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom"
 import { auth } from "../../../lib/firebase/init"
 import { getRedirectResult, updateProfile } from "firebase/auth"
 import { useUser } from "../../../hooks"
-import { createDataUser, getDataUser, updateDataUser } from "../../../lib/firebase/service"
+import { createDataUser, getDataUser, updateDataUser } from "../../../lib/firebase/services/userFirestore"
+import { handleAuthUser } from "../../../services/auth"
 import { FIREBASE_ERROR } from "../../../utils/constants"
 
+import Logo from "../../elements/Logo"
+import BtnToggleAuthForm from "../../elements/BtnToggleAuthForm"
+import BtnLoginGoogle from "../../elements/BtnLoginGoogle"
+import BtnSubmit from '../../elements/BtnSubmit'
+import FormLogin from "./FormLogin"
+import FormRegister from "./FormRegister"
+import { Toast } from "../../../lib/sweetalert2/init";
 
 function FormAuth() {
   const [login, setLogin] = useState(true)
@@ -33,8 +32,19 @@ function FormAuth() {
       const userData = await handleAuthUser(login)
 
       setErrMsg('')
-      if (userData && login) toast.success('Login berhasil')
-      if (userData && !login) toast.success('Register berhasil')
+      if (userData && login) {
+        Toast.fire({
+          icon: 'success',
+          title: 'Login Berhasil',
+        })
+      }
+
+      if (userData && !login) {
+        Toast.fire({
+          icon: 'success',
+          title: 'Register Berhasil',
+        })
+      }
 
       setUserInfo(userData)
       setIsLoading(false)
@@ -43,7 +53,11 @@ function FormAuth() {
         if (err.error === error.message) return err;
       })?.message || error.message;
 
-      toast.error(errMessage)
+      Toast.fire({
+        icon: 'error',
+        title: errMessage,
+      })
+
       setErrMsg(errMessage)
       setIsLoading(false)
       console.log(errMessage);
@@ -113,21 +127,41 @@ function FormAuth() {
 
   useEffect(() => {
     (async function () {
-      const userCreds = await getRedirectResult(auth);
-      const user = userCreds?.user;
-
-      if (user) {
+      try {
         setIsLoading(true)
-        toast.success('login berhasil.')
+        const userCreds = await getRedirectResult(auth);
+        const user = userCreds?.user;
 
-        const userData =
-          JSON.parse(localStorage.getItem("user")) ||
-          (await getDataUser(user.email))?.data?.data?.userData;
+        if (user) {
+          Toast.fire({
+            icon: 'success',
+            title: 'Login Berhasil',
+          })
 
-        if (!userData) {
-          await createUserProfile(user, userData)
+          const userData =
+            JSON.parse(localStorage.getItem("user")) ||
+            (await getDataUser(user.email))?.data?.data?.userData;
+
+          if (!userData) {
+            await createUserProfile(user, userData)
+          } else {
+            await updateUserProfile(user, userData)
+          }
+        }
+      } catch (error) {
+        setIsLoading(false)
+        if (error.response) {
+          console.log(error.response.data.message)
+          Toast.fire({
+            icon: 'error',
+            title: error.response.data.message,
+          })
         } else {
-          await updateUserProfile(user, userData)
+          console.log(error.message)
+          Toast.fire({
+            icon: 'error',
+            title: error.message,
+          })
         }
       }
       setIsLoading(false)
@@ -145,24 +179,15 @@ function FormAuth() {
       <BtnToggleAuthForm login={login} setLogin={setLogin} />
 
       {errMsg && (
-        <span className="block w-full text-center text-sm lg:text-base text-red-500 font-semibold">{errMsg}</span>
+        <span className="block w-full text-center text-sm lg:text-base text-red-500 font-semibold">
+          {errMsg}
+        </span>
       )}
 
-      <ToastContainer
-        position="top-right"
-        autoClose={3500}
-        hideProgressBar={true}
-        theme="colored"
-        transition={Bounce}
-        draggablePercent={60}
-        closeOnClick
-        role="alert"
-      />
-
       {login ? <FormLogin /> : <FormRegister />}
-      <BtnSubmitAuth isLoading={isLoading}>
+      <BtnSubmit isLoading={isLoading} className="mt-4">
         {login ? 'Masuk' : 'Daftar'}
-      </BtnSubmitAuth>
+      </BtnSubmit>
 
       <div className='text-center relative custom-line mt-5'>atau</div>
       <BtnLoginGoogle />

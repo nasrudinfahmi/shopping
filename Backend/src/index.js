@@ -2,6 +2,8 @@ import express from "express";
 import "dotenv/config";
 import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
+import sellerRoutes from "./routes/sellerRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -22,6 +24,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.get("/", (_req, res) => res.redirect(origin));
 app.use("/data/user", userRoutes);
+app.use("/data/seller", sellerRoutes);
+app.use("/data/products", productRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}.`);

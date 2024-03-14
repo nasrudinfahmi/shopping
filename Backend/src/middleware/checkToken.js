@@ -1,5 +1,4 @@
 import { adminAuth } from "../lib/firebaseAdmin/init.js";
-import { errorResponse } from "../utils/utils.js";
 
 const checkToken = async (req, res, next) => {
   try {

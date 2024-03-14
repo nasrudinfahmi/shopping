@@ -1,5 +1,5 @@
 import { FieldValue } from "firebase-admin/firestore";
-import { usersFirestore } from "../lib/firebaseAdmin/services/userFirestore.js";
+import { usersFirestore } from "../lib/firebaseAdmin/services/firestore.js";
 import {
   checkIsAllNullOrUndefined,
   convertToIndonesianPhoneNumber,
@@ -47,7 +47,7 @@ const createNewDocUser = async (req, res) => {
       phoneNumber: convertedPhoneNumber,
       role: "user",
       emailVerified,
-      cretaedAt: FieldValue.serverTimestamp(),
+      createdAt: FieldValue.serverTimestamp(),
       updatedAt: FieldValue.serverTimestamp(),
     };
 
@@ -96,20 +96,35 @@ const getDocUser = async (req, res) => {
 const updateDocUser = async (req, res) => {
   try {
     const { email } = req.query;
-    const { displayName, photoURL, role, emailVerified } = req.body;
-    if (!email || email.trim() === "")
+    const {
+      displayName,
+      photoURL,
+      role,
+      phoneNumber,
+      emailVerified,
+      address,
+      uids,
+    } = req.body;
+    if (!email || email.trim() === "") {
       throw new Error("Masukkan email untuk update data!");
-
-    if (
-      (!displayName || displayName.trim() === "") &&
-      (!photoURL || photoURL.trim() === "") &&
-      (!role || role.trim() === "") &&
-      (emailVerified === null || emailVerified === undefined)
-    ) {
-      throw new Error("Data tidak valid!");
     }
 
-    const datas = { displayName, photoURL, role, emailVerified };
+    let convertedPhoneNumber;
+    if (phoneNumber && phoneNumber.trim() !== "") {
+      const isPhoneNumberValid = validateIndonesianPhoneNumber(phoneNumber);
+      if (!isPhoneNumberValid) throw new Error("Nomor telepon tidak valid!");
+      convertedPhoneNumber = convertToIndonesianPhoneNumber(phoneNumber);
+    }
+
+    const datas = {
+      displayName,
+      photoURL,
+      role,
+      phoneNumber: convertedPhoneNumber,
+      emailVerified,
+      address,
+      uids,
+    };
     let dataToUpdate = {};
 
     for (const [key, value] of Object.entries(datas)) {
@@ -117,16 +132,25 @@ const updateDocUser = async (req, res) => {
         dataToUpdate[key] = value.trim();
       }
 
+      if (key === "photoURL" && typeof value !== "string" && value === null) {
+        dataToUpdate[key] = null;
+      }
+
       if (typeof value === "boolean") {
         dataToUpdate[key] = emailVerified;
+      }
+
+      if (key === "address" && typeof value !== "undefined") {
+        dataToUpdate[key] = value;
       }
     }
 
     if (Object.keys(dataToUpdate).length === 0) {
       throw new Error("Data tidak valid!");
-    } else {
-      await usersFirestore(email).update(dataToUpdate);
     }
+
+    dataToUpdate.updatedAt = FieldValue.serverTimestamp();
+    await usersFirestore(email).update(dataToUpdate);
 
     return successResponse(res, 200, "Berhasil memperbarui data user", {
       data: dataToUpdate,

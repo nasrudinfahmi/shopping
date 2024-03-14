@@ -1,30 +1,33 @@
 import PropTypes from 'prop-types'
-import { useEffect } from "react"
-import { useUser } from "../../hooks"
-import { useNavigate } from "react-router-dom"
-import { Outlet } from 'react-router-dom'
+import { useSeller, useUser } from "../../hooks"
+import { Outlet, Navigate } from 'react-router-dom'
+import { auth } from '../../lib/firebase/init'
 
 function ProtectedRoute({ path }) {
-  const { userInfo, loading } = useUser()
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (!loading) {
-      if (userInfo && path === '/auth') {
-        return navigate('/', { replace: true })
-      }
-
-      if (!userInfo && path !== 'auth') {
-        return navigate('/auth', { replace: true })
-      }
-    }
-  }, [userInfo, loading, path, navigate])
-
+  const { userInfo } = useUser()
+  const uids = userInfo?.uids;
+  const role = userInfo?.role;
+  const { loading, seller } = useSeller()
 
   if (loading) return <h1>loading bos!</h1>
-  if (!loading && !userInfo && path !== '/auth') return <h1>loading bos!</h1>
-  if (!loading && userInfo && path === '/auth') return <h1>loading bos!</h1>
-  return <>{<Outlet />}</>
+
+  // user belum login dan mengakses route /auth
+  if (!auth.currentUser && !userInfo && path === '/auth') return <Outlet />
+
+  // user tidak bisa akses route /auth ketika sudah login
+  if (auth.currentUser && userInfo && path === '/auth') return <Navigate to="/" replace />
+
+  // user tidak bisa akses route yang dilindungi jika belum login
+  if (!auth.currentUser && !userInfo && path !== 'auth') return <Navigate to="/auth" replace />
+
+  // user TIDAK punya toko dan mengakses route buka toko (/mystore)
+  if (!uids && role === 'user' && !seller && path === '/mystore') return <Outlet />
+
+  // user SUDAH punya toko dan mengakses route buka toko (/mystore)
+  if (uids && role === 'seller' && seller && path === '/mystore') return <Navigate to="/dashboard" replace />
+
+  // user belum login tapi mengakses route yang tidak dilindungi
+  return <Outlet />
 }
 
 ProtectedRoute.propTypes = {

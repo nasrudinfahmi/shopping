@@ -22,6 +22,14 @@ import NotifIcon2 from "../assets/icons/notification2.svg";
 import SettingIcon from "../assets/icons/setting.svg";
 import LogoutIcon from "../assets/icons/logout.svg";
 
+import BookIcon from "../assets/icons/book.svg";
+import CartIcon from "../assets/icons/cart.svg";
+import StarIcon from "../assets/icons/star.svg";
+import ChatIcon from "../assets/icons/chat.svg";
+import NotifIcon from "../assets/icons/notification.svg";
+import HeadsetIcon from "../assets/icons/headset.svg";
+import HelpIcon from "../assets/icons/help.svg";
+
 const NAVBAR_BOTTOM = [
   { label: "Beranda", alt: "Ikon beranda", src: HomeIcon },
   { label: "Rekomendasi", alt: "Ikon rekomendasi", src: RecomIcon },
@@ -163,6 +171,47 @@ const FIREBASE_ERROR = [
   },
 ];
 
+const MENUS_USER_PROFILE = {
+  FIRST: [
+    {
+      icon: BookIcon,
+      text: "Daftar Transaksi",
+      path: "",
+    },
+    {
+      icon: CartIcon,
+      text: "Keranjang Belanja",
+    },
+    {
+      icon: StarIcon,
+      text: "Ulasan",
+      path: "",
+    },
+    {
+      icon: ChatIcon,
+      text: "Pesan",
+      path: "",
+    },
+    {
+      icon: NotifIcon,
+      text: "Notifikasi",
+      path: "",
+    },
+  ],
+  TWO: [
+    {
+      icon: HeadsetIcon,
+      text: "Customer Service",
+      path: "",
+    },
+    {
+      icon: HelpIcon,
+      text: "Pusat Bantuan",
+      path: "",
+    },
+  ],
+};
+
 export {
   NAVBAR_BOTTOM,
   CATEGORIES_HOME,
@@ -170,4 +219,5 @@ export {
   DATA_DUMMY_CARTS,
   MENUS_ADMIN_SIDEBAR,
   FIREBASE_ERROR,
+  MENUS_USER_PROFILE,
 };
