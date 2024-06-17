@@ -80,4 +80,30 @@ const deleteAllSellersProducts = async (uids) => {
   }
 };
 
-export { createNewProduct, getSellersProduct, deleteAllSellersProducts };
+const updateProduct = async (uid, dataToUpdate) => {
+  try {
+    let data = dataToUpdate;
+    data.updatedAt = FieldValue.serverTimestamp();
+
+    await productFirestore(uid).update(data);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const getProduct = async (uid) => {
+  try {
+    const product = (await productFirestore(uid).get()).data();
+    return product;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export {
+  createNewProduct,
+  getSellersProduct,
+  deleteAllSellersProducts,
+  updateProduct,
+  getProduct,
+};

@@ -4,6 +4,7 @@ import { auth } from '../../lib/firebase/init'
 import { useUser } from '../../hooks'
 import { getSeller } from '../../lib/firebase/services/sellerFirestore'
 import { Navigate } from 'react-router-dom'
+import Loading from '../../components/elements/Loading'
 
 export const SellerContext = createContext(null)
 
@@ -33,7 +34,7 @@ function SellerContextProvider({ children }) {
 
   return (
     <SellerContext.Provider value={{ seller, setSeller, loading }}>
-      {loading ? 'Loading bos!' : children}
+      {loading ? <Loading /> : children}
     </SellerContext.Provider>
   )
 }

@@ -31,10 +31,15 @@ import HeadsetIcon from "../assets/icons/headset.svg";
 import HelpIcon from "../assets/icons/help.svg";
 
 const NAVBAR_BOTTOM = [
-  { label: "Beranda", alt: "Ikon beranda", src: HomeIcon },
-  { label: "Rekomendasi", alt: "Ikon rekomendasi", src: RecomIcon },
-  { label: "Siaran langsung", alt: "Ikon siaran langsung", src: LiveIcon },
-  { label: "Profil saya", alt: "Ikon profil", src: UserIcon },
+  { label: "Beranda", alt: "Ikon beranda", src: HomeIcon, href: "/" },
+  { label: "Rekomendasi", alt: "Ikon rekomendasi", src: RecomIcon, href: "" },
+  {
+    label: "Siaran langsung",
+    alt: "Ikon siaran langsung",
+    src: LiveIcon,
+    href: "",
+  },
+  { label: "Profil saya", alt: "Ikon profil", src: UserIcon, href: "/me" },
 ];
 
 const CATEGORIES_HOME = [
@@ -151,13 +156,33 @@ let DATA_DUMMY_CARTS = {
 };
 
 const MENUS_ADMIN_SIDEBAR = [
-  { icon: DashboardIcon, alt: "ikon dashboard", text: "Dashboard" },
-  { icon: ProductIcon, alt: "ikon produk", text: "Produk" },
-  { icon: UserIcon2, alt: "ikon user", text: "Profil" },
-  { icon: MailIcon, alt: "ikon pesan", text: "Pesan" },
-  { icon: NotifIcon2, alt: "ikon notifikasi", text: "Notifikasi" },
-  { icon: SettingIcon, alt: "ikon pengaturan", text: "Pengaturan" },
-  { icon: LogoutIcon, alt: "ikon keluar", text: "Keluar" },
+  {
+    icon: DashboardIcon,
+    alt: "ikon dashboard",
+    text: "Dashboard",
+    href: "/dashboard",
+  },
+  {
+    icon: ProductIcon,
+    alt: "ikon produk",
+    text: "Produk",
+    href: "/dashboard/products",
+  },
+  { icon: UserIcon2, alt: "ikon user", text: "Profil", href: "/dashboard" },
+  { icon: MailIcon, alt: "ikon pesan", text: "Pesan", href: "/dashboard" },
+  {
+    icon: NotifIcon2,
+    alt: "ikon notifikasi",
+    text: "Notifikasi",
+    href: "/dashboard",
+  },
+  {
+    icon: SettingIcon,
+    alt: "ikon pengaturan",
+    text: "Pengaturan",
+    href: "/dashboard",
+  },
+  { icon: LogoutIcon, alt: "ikon keluar", text: "Keluar", href: "/dashboard" },
 ];
 
 const FIREBASE_ERROR = [
@@ -181,6 +206,7 @@ const MENUS_USER_PROFILE = {
     {
       icon: CartIcon,
       text: "Keranjang Belanja",
+      path: "/cart",
     },
     {
       icon: StarIcon,

@@ -1,9 +1,4 @@
-// import { useEffect, useRef } from 'react'
-// import { useEditor } from '../../hooks'
-
 function RichTextEditor() {
-
-
   return (
     <>
       <span className='mb-px flex text-sm font-semibold text-slate-700 mt-3'>deskripsi</span>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useContext } from "react"
 import { EditorContext } from "../context/editorjs/editorContext"
 import { UserContext } from "../context/user/UserContext"
@@ -22,6 +22,22 @@ const useResizeWindow = () => {
   return { windowWidth }
 }
 
+const useScrollWindow = () => {
+  const [scrollY, setScrollY] = useState(0)
+
+  const scrollWindow = useCallback(() => {
+    setScrollY(window.scrollY)
+  }, [])
+
+  useEffect(() => {
+    document.addEventListener('scroll', scrollWindow)
+
+    return () => document.removeEventListener('scroll', scrollWindow)
+  }, [scrollWindow])
+
+  return { scrollY }
+}
+
 const useEditor = () => {
   const { initEditor, editorInstanceRef } = useContext(EditorContext)
   return { initEditor, editorInstanceRef }
@@ -43,4 +59,4 @@ const useSeller = () => {
   return { seller, setSeller, loading }
 }
 
-export { useResizeWindow, useEditor, useUser, useSeller }
+export { useResizeWindow, useScrollWindow, useEditor, useUser, useSeller }

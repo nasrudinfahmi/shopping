@@ -5,8 +5,11 @@ const formattedIDR = (price) => {
   const IDR = num.toLocaleString("id-ID", {
     style: "currency",
     currency: "IDR",
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
   });
-  return IDR.replace(",00", "");
+
+  return IDR;
 };
 
 const getValueById = (idValue) => {
@@ -57,6 +60,18 @@ const saveUserInfoToLocalstorage = async (email) => {
   }
 };
 
+const generateRandomString = () => {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*()_-+=?><";
+  let result = "";
+
+  for (let i = 0; i < 10; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+
+  return result + Math.random().toString(36).substring(8);
+};
+
 export {
   formattedIDR,
   getValueById,
@@ -64,4 +79,5 @@ export {
   validateIndonesianPhoneNumber,
   getPathFromFirebaseStorageUrl,
   saveUserInfoToLocalstorage,
+  generateRandomString,
 };

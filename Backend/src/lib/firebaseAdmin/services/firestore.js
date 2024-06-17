@@ -20,4 +20,15 @@ const productCollection = () => {
   return ref;
 };
 
-export { usersFirestore, sellerFirestore, productFirestore, productCollection };
+const cartCollection = () => {
+  const ref = db.collection("cart");
+  return ref;
+};
+
+export {
+  usersFirestore,
+  sellerFirestore,
+  productFirestore,
+  productCollection,
+  cartCollection,
+};

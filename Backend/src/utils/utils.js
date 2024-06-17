@@ -61,6 +61,53 @@ const generateRandomId = () => {
   return `${$1}${$2.toString(36)}${$3}`;
 };
 
+// fungsi untuk mendapatkan path url suatu file
+const getPathFromFirebaseStorageUrl = (url) => {
+  if (!url) return false;
+  if (url.includes(process.env.BUCKET_NAME)) {
+    const pathUrl = decodeURIComponent(url.split("/o/")[1].split("?")[0]);
+    return pathUrl;
+  }
+
+  return false;
+};
+
+// fungsi untuk mengecek apakah sebuah objek sama key dan valuenya
+const areObjectsEqual = (obj1, obj2) => {
+  // Mendapatkan daftar kunci dari kedua objek
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+
+  // Memeriksa jumlah kunci
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+
+  // Memeriksa setiap kunci dan nilainya
+  for (const key of keys1) {
+    // Memeriksa apakah kunci ada di kedua objek
+    if (!keys2.includes(key)) {
+      return false;
+    }
+
+    // Memeriksa rekursif jika nilai objek adalah objek
+    const val1 = obj1[key];
+    const val2 = obj2[key];
+    const areEqual =
+      typeof val1 === "object" && typeof val2 === "object"
+        ? areObjectsEqual(val1, val2)
+        : val1 === val2;
+
+    // Jika nilai tidak sama, mengembalikan false
+    if (!areEqual) {
+      return false;
+    }
+  }
+
+  // Jika tidak ada perbedaan ditemukan, mengembalikan true
+  return true;
+};
+
 export {
   errorResponse,
   successResponse,
@@ -68,4 +115,6 @@ export {
   convertToIndonesianPhoneNumber,
   checkIsAllNullOrUndefined,
   generateRandomId,
+  getPathFromFirebaseStorageUrl,
+  areObjectsEqual,
 };

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { Navigate, Outlet } from "react-router-dom"
 import { useSeller, useUser } from "../../hooks"
 import { auth } from "../../lib/firebase/init"
+import Loading from '../elements/Loading'
 
 function ProtectedRoute2() {
   const { seller, loading } = useSeller()
@@ -9,7 +10,7 @@ function ProtectedRoute2() {
   const role = userInfo?.role;
   const uids = userInfo?.uids;
 
-  if (loading) return <h1>Loading bos!</h1>
+  if (loading) return <Loading />
   if (!loading) {
     // jika pengguna belum login dan mengakses route yang dilindungi
     if (!userInfo && !auth.currentUser) return <Navigate to="/auth" replace />

@@ -1,12 +1,14 @@
+import PropTypes from 'prop-types'
 import { Link, useSearchParams } from 'react-router-dom'
 import NotifIcon from '../../../../assets/icons/notification.svg'
 import CartIcon from '../../../../assets/icons/cart.svg'
 import UserIcon from '../../../../assets/icons/user.svg'
 import Logo from '../../../elements/Logo'
-import { useResizeWindow } from '../../../../hooks'
+import SearchProducts from '../../../elements/SearchProducts'
 import { useEffect, useState } from 'react'
+import { useResizeWindow } from '../../../../hooks'
 
-function NavbarTop() {
+function NavbarTop({ widthInputSearch = true }) {
   const { windowWidth } = useResizeWindow()
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -39,35 +41,29 @@ function NavbarTop() {
         </div>
       )}
 
-      <label htmlFor="search" className='basis-full lg:basis-1/2'>
-        <input
-          type="search"
-          placeholder="Cari di shopping"
-          aria-label="Cari produk di shopping"
-          onChange={(e) => onChangeSearchInput(e)}
-          value={searchValue}
-          autoComplete='off'
-          spellCheck={false}
-          id='search'
-          className="shrink border-none w-full outline outline-1 outline-slate-400 rounded-xl py-1 px-3 sm:px-4 focus:outline-teal-500 focus:shadow-sm"
-        />
-      </label>
+      {widthInputSearch && (
+        <SearchProducts searchValue={searchValue} onChangeSearchInput={onChangeSearchInput} />
+      )}
 
       <div className='flex w-20 sm:w-32 justify-evenly sm:justify-around shrink-0'>
         <Link className='p-1' aria-label='notifikasi'>
           <img src={NotifIcon} alt="Ikon notifikasi" width={24} height={24} />
         </Link>
-        <Link className='p-1' aria-label='keranjang belanja'>
+        <Link to='/cart' className='p-1' aria-label='keranjang belanja'>
           <img src={CartIcon} alt="Ikon keranjang belanja" width={24} height={24} />
         </Link>
         {windowWidth >= 640 && (
-          <Link className='block p-1' aria-label='profil saya'>
+          <Link to='/me' className='block p-1' aria-label='profil saya'>
             <img src={UserIcon} alt="Ikon Pengguna" width={24} height={24} />
           </Link>
         )}
       </div>
     </nav>
   )
+}
+
+NavbarTop.propTypes = {
+  widthInputSearch: PropTypes.bool,
 }
 
 export default NavbarTop

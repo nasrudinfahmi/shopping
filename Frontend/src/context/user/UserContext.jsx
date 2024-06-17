@@ -6,7 +6,7 @@ import { deleteDataUser, getDataUser } from '../../lib/firebase/services/userFir
 import { EmailAuthProvider, deleteUser, onAuthStateChanged, reauthenticateWithCredential, reauthenticateWithRedirect } from "firebase/auth";
 import { deleteFileFromStorage } from "../../lib/firebase/services/storage";
 import Swal from "sweetalert2";
-import { confirmDeleteAccount, modalInputPassword } from "../../lib/sweetalert2/init";
+import { confirmDeleteAccount, modalInputPasswordOpt } from "../../lib/sweetalert2/init";
 import { deleteSeller } from "../../lib/firebase/services/sellerFirestore";
 import { deleteAllSellersProducts } from "../../lib/firebase/services/productFirebase";
 
@@ -69,7 +69,7 @@ function UserContextProvider({ children }) {
         }
 
         if (providerId === 'password') {
-          const { value: password } = await Swal.fire(modalInputPassword);
+          const { value: password } = await Swal.fire(modalInputPasswordOpt);
 
           if (!password) return false;
           const credentials = EmailAuthProvider.credential(auth.currentUser.email, password)

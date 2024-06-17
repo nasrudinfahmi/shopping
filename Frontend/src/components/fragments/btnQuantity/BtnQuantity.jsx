@@ -3,6 +3,8 @@ import MinusIcon from '../../../assets/icons/minus.svg'
 import PlusIcon from '../../../assets/icons/plus.svg'
 import TrashIcon from '../../../assets/icons/trash.svg'
 import { useEffect, useState } from 'react'
+import { addToCart } from '../../../lib/firebase/services/cartFirebase'
+import { auth } from '../../../lib/firebase/init'
 
 function BtnQuantity({
   handleInputQty,
@@ -14,10 +16,23 @@ function BtnQuantity({
 
   const [qty, setQty] = useState(product.qty)
 
-  const handleBtnQty = (action) => {
-    handleClickBtnQty(action, idSeller, product.idProduct)
-    const newQty = action === 'inc' ? Math.min(product.qty + 1, 50) : Math.max(product.qty - 1, 1)
-    setQty(newQty)
+  const handleBtnQty = async (action) => {
+    try {
+      handleClickBtnQty(action, idSeller, product.idCart)
+      const newQty = action === 'inc' ? Math.min(product.qty + 1, 50) : Math.max(product.qty - 1, 1)
+      setQty(newQty)
+
+      await addToCart({
+        email: auth.currentUser.email,
+        qty: action === 'inc' ? 1 : -1,
+        storeName: product.storeName,
+        uid: product.uid,
+        uids: product.uids,
+        variations: product.variations,
+      })
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   const handleBlur = (e) => {
@@ -26,9 +41,9 @@ function BtnQuantity({
   }
 
   useEffect(() => {
-    const qtyInputElement = document.getElementById(product.idProduct)
+    const qtyInputElement = document.getElementById(product.idCart)
     qtyInputElement.textContent = qty
-  }, [product.idProduct, qty])
+  }, [product.idCart, qty])
 
   return (
     <span className="w-max flex border rounded-lg overflow-hidden">
@@ -47,7 +62,7 @@ function BtnQuantity({
         onBlur={e => handleBlur(e)}
         inputMode='numeric'
         pattern="[0-9]*"
-        id={product.idProduct}
+        id={product.idCart}
         className={`w-10 px-3 grid place-content-center border-x ${paddingBlock}`}
       />
       <button type="button" aria-label="Tambah kuantiti" disabled={qty >= 50} className="border-none px-2 py-[2px]" onClick={() => handleBtnQty('inc')}>

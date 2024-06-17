@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types'
 import TitleSect from '../../elements/TitleSect'
+import { formattedIDR } from '../../../utils/utils'
 
-function DetailSect() {
+function DetailSect({ product }) {
   return (
     <section className="md:basis-1/2 p-1 pt-3 mt-6 md:mt-0 bg-white rounded-md sm:p-4 lg:p-7 lg:rounded-lg">
       <TitleSect>Detail produk</TitleSect>
@@ -10,20 +12,24 @@ function DetailSect() {
           <span>Merek</span>
           <span>Harga</span>
           <span>Status</span>
+          {product.status === 'ready' && <span>Stok</span>}
           <span>Pengiriman</span>
-          <span>Toko</span>
         </div>
         <div className="col-span-2 flex flex-col gap-1 *:line-clamp-1">
-          <span>Baju Sangat Bagus</span>
-          <span>Baju besi</span>
-          <span>Rp. 215.000</span>
-          <span>Ready</span>
-          <span>Surabaya</span>
-          <span>Tokobaju</span>
+          <span>{product.productName}</span>
+          <span>{product.brand}</span>
+          <span>{formattedIDR(product.price)}</span>
+          <span>{product.status}</span>
+          {product.status === 'ready' && <span>{product.qty}</span>}
+          <span>{product.delivery}</span>
         </div>
       </section>
     </section>
   )
+}
+
+DetailSect.propTypes = {
+  product: PropTypes.object.isRequired,
 }
 
 export default DetailSect

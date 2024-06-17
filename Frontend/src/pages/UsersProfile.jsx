@@ -1,10 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CloseIcon from '../assets/icons/x.svg';
 import DefaultAvatar from '../assets/icons/DefaultAvatar.svg';
 import { useSeller, useUser } from "../hooks";
 import { useMemo } from "react";
 import SettingIcon from '../assets/icons/setting2.svg';
 import { MENUS_USER_PROFILE } from "../utils/constants";
+import Loading from "../components/elements/Loading";
+import { Toast } from "../lib/sweetalert2/init";
+import { auth } from "../lib/firebase/init";
+import LogoutIcon2 from "../assets/icons/logout2.svg";
 
 function UsersProfile() {
   const { userInfo } = useUser();
@@ -14,7 +18,7 @@ function UsersProfile() {
     return userInfo?.photoURL ? userInfo?.photoURL : DefaultAvatar;
   }, [userInfo?.photoURL]);
 
-  if (loading) return <h1>Loadig bos!</h1>
+  if (loading) return <Loading />
   return (
     <>
       <header className='bg-white fixed w-full top-0 left-0 px-3 py-2 sm:py-3 shadow-navtop border-b border-slate-50 flex items-center gap-2 *:py-1 font-semibold text-lg'>
@@ -63,17 +67,64 @@ function UsersProfile() {
 }
 
 const MenusUserProfile = () => {
+  const { logout } = useUser()
+  const navigate = useNavigate()
+  const { userInfo } = useUser();
+  const isLogin = userInfo && auth.currentUser
+
+  const handleLogout = () => {
+    if (isLogin) {
+      logout()
+      Toast.fire({
+        icon: 'info',
+        title: 'Logout Berhasil'
+      })
+
+      setTimeout(() => {
+        navigate('/auth')
+      }, 500)
+    }
+  }
+
   return (
     <>
       {Object.entries(MENUS_USER_PROFILE).map(([key, menus]) => (
         <section key={key} className="pt-2 flex flex-col gap-1">
           <span className="block bg-neutral-100 py-1 my-1 w-full" />
           {menus.map(menu => (
-            <Link key={menu.text} to={menu.path} title={menu.text} aria-label={menu.text} className="flex items-center gap-2 basis-full py-2 px-3 leading-tight bg-white hover:bg-slate-50/70">
+            <Link
+              key={menu.text}
+              to={menu.path}
+              title={menu.text}
+              aria-label={menu.text}
+              className="flex items-center gap-2 basis-full py-2 px-3 leading-tight bg-white hover:bg-slate-50/70"
+            >
               <img src={menu.icon} alt={menu.text} width={19} height={19} />
               {menu.text}
             </Link>
           ))}
+
+          {isLogin ? (
+            <Link
+              title='Keluar'
+              aria-label='Keluar'
+              onClick={handleLogout}
+              className="flex items-center gap-2 basis-full py-2 px-3 leading-tight bg-white hover:bg-slate-50/70"
+            >
+              <img src={LogoutIcon2} alt='keluar' width={19} height={19} />
+              Keluar
+            </Link>
+          ) : (
+            <Link
+              title='Masuk'
+              aria-label='Masuk'
+              to='/auth'
+              className="flex items-center gap-2 basis-full py-2 px-3 leading-tight bg-white hover:bg-slate-50/70"
+            >
+              <img src={LogoutIcon2} alt='Masuk' width={19} height={19} />
+              Masuk
+            </Link>
+          )}
         </section>
       ))}
     </>

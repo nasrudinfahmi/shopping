@@ -11,6 +11,7 @@ import { saveUserInfoToLocalstorage } from "../utils/utils";
 import { useUser } from "../hooks";
 import { Toast } from "../lib/sweetalert2/init";
 import { createSeller } from "../lib/firebase/services/sellerFirestore";
+import Loading from "../components/elements/Loading";
 
 function MyStoresAddress() {
   const { userInfo, setUserInfo } = useUser()
@@ -182,7 +183,7 @@ function MyStoresAddress() {
             />
           )}
 
-          {loadingCities && <h1>Loading bos...</h1>}
+          {loadingCities && <Loading paddingTop="pt-0" />}
           {address.province && !loadingCities && (
             <Select
               key="regencies and city"
@@ -197,7 +198,7 @@ function MyStoresAddress() {
             />
           )}
 
-          {loadingDistricts && <h1>Loading bos...</h1>}
+          {loadingDistricts && <Loading paddingTop="pt-0" />}
           {address.city && !loadingDistricts && (
             <Select
               key="districts"
@@ -212,7 +213,7 @@ function MyStoresAddress() {
             />
           )}
 
-          {loadingSubdistrict && <h1>Loading bos...</h1>}
+          {loadingSubdistrict && <Loading paddingTop="pt-0" />}
           {address.district && !loadingSubdistrict && (
             <Select
               key="subdistrict"

@@ -106,4 +106,123 @@ const deleteAllSellersProducts = async (uids) => {
   }
 };
 
-export { addNewProduct, getAllSellersProducts, deleteAllSellersProducts };
+const updateProduct = async ({
+  uid,
+  productName,
+  price,
+  summary,
+  delivery,
+  brand,
+  status,
+  qty,
+  thumbProduct,
+  imgs,
+  tagVariations,
+  descriptions,
+}) => {
+  try {
+    const exp = auth?.currentUser?.stsTokenManager?.expirationTime;
+    const token = Date.now() > exp ? await getNewToken() : await getToken();
+
+    const datas = {
+      uid,
+      productName,
+      price,
+      summary,
+      delivery,
+      brand,
+      status,
+      qty,
+      thumbProduct,
+      imgs,
+      tagVariations,
+      descriptions,
+    };
+
+    const productResponse = await productAxios({
+      url: "/update",
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${token}` },
+      data: JSON.stringify(datas),
+    });
+
+    return productResponse.data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error(error.message);
+    }
+  }
+};
+
+const getProducts = async () => {
+  try {
+    const productResponse = await productAxios({
+      url: "/get/all",
+      method: "GET",
+    });
+
+    return productResponse.data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error(error.message);
+    }
+  }
+};
+
+const getProduct = async (uid) => {
+  try {
+    const exp = auth?.currentUser?.stsTokenManager?.expirationTime;
+    const token = Date.now() > exp ? await getNewToken() : await getToken();
+
+    const productResponse = await productAxios({
+      url: `/get?uid=${uid}`,
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return productResponse.data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error(error.message);
+    }
+  }
+};
+
+const deleteProduct = async (uid, images) => {
+  try {
+    if (!uid || !images) throw new Error("Data tidak valid!");
+    const exp = auth?.currentUser?.stsTokenManager?.expirationTime;
+    const token = Date.now() > exp ? await getNewToken() : await getToken();
+
+    const deleteProductResponse = await productAxios({
+      url: `/delete?uid=${uid}`,
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+      data: JSON.stringify({ images }),
+    });
+
+    return deleteProductResponse.data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error(error.message);
+    }
+  }
+};
+
+export {
+  addNewProduct,
+  getAllSellersProducts,
+  deleteAllSellersProducts,
+  updateProduct,
+  getProducts,
+  getProduct,
+  deleteProduct,
+};
