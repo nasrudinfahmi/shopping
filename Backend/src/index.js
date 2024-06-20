@@ -32,7 +32,7 @@ app.use("/data/products", productRoutes);
 app.use("/data/payment", paymentRoutes);
 app.use("/data/cart", cartRoutes);
 
-export const handler = serverless(api);
+export const handler = serverless(app);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}.`);
