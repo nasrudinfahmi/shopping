@@ -6,10 +6,10 @@ import sellerRoutes from "../routes/sellerRoutes.js";
 import productRoutes from "../routes/productRoutes.js";
 import paymentRoutes from "../routes/paymentRoutes.js";
 import cartRoutes from "../routes/cartRoutes.js";
-// import serverless from "serverless-http";
+import serverless from "serverless-http";
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 const origin =
   process.env.IS_PRODUCTION === "true"
@@ -32,8 +32,12 @@ app.use("/data/products", productRoutes);
 app.use("/data/payment", paymentRoutes);
 app.use("/data/cart", cartRoutes);
 
-// export const handler = serverless(app);
+const handler = serverless(app);
 
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}.`);
-});
+export default handler;
+
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}.`);
+  });
+}
