@@ -3,7 +3,7 @@ import { getFirestore } from "firebase-admin/firestore";
 import { getStorage } from "firebase-admin/storage";
 import admin from "firebase-admin";
 
-const creds = process.env.name;
+const creds = process.env.NAME;
 
 initializeApp({
   credential: cert(creds),
