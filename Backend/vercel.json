@@ -11,5 +11,10 @@
       "src": "/(.*)",
       "dest": "src/functions/api.js"
     }
-  ]
+  ],
+  "functions": {
+    "path/to/dir/**/*": {
+      "maxDuration": 50
+    }
+  }
 }
