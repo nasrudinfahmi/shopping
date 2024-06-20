@@ -25,7 +25,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.get("/", (_req, res) => res.redirect(origin));
+app.get("/", (_req, res) => res.send("Hello world"));
 app.use("/data/user", userRoutes);
 app.use("/data/seller", sellerRoutes);
 app.use("/data/products", productRoutes);
