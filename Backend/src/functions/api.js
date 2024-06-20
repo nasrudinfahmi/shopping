@@ -6,7 +6,7 @@ import sellerRoutes from "../routes/sellerRoutes.js";
 import productRoutes from "../routes/productRoutes.js";
 import paymentRoutes from "../routes/paymentRoutes.js";
 import cartRoutes from "../routes/cartRoutes.js";
-import serverless from "serverless-http";
+// import serverless from "serverless-http";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -32,7 +32,7 @@ app.use("/data/products", productRoutes);
 app.use("/data/payment", paymentRoutes);
 app.use("/data/cart", cartRoutes);
 
-export const handler = serverless(app);
+// export const handler = serverless(app);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}.`);
