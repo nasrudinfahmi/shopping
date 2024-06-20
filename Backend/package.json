@@ -2,11 +2,11 @@
   "name": "shopping-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "api.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./src/index.js",
-    "start": "node ./src/index.js"
+    "dev": "nodemon ./src/api.js",
+    "start": "node ./src/api.js"
   },
   "author": "nasrudin fahmi",
   "license": "ISC",

@@ -1,11 +1,11 @@
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
-import userRoutes from "./routes/userRoutes.js";
-import sellerRoutes from "./routes/sellerRoutes.js";
-import productRoutes from "./routes/productRoutes.js";
-import paymentRoutes from "./routes/paymentRoutes.js";
-import cartRoutes from "./routes/cartRoutes.js";
+import userRoutes from "../routes/userRoutes.js";
+import sellerRoutes from "../routes/sellerRoutes.js";
+import productRoutes from "../routes/productRoutes.js";
+import paymentRoutes from "../routes/paymentRoutes.js";
+import cartRoutes from "../routes/cartRoutes.js";
 import serverless from "serverless-http";
 
 const app = express();
