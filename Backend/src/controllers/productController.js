@@ -230,7 +230,7 @@ const getProductsController = async (req, res) => {
     let statusCode = 500;
 
     if (error.message === "Data tidak ditemukan!") statusCode = 404;
-    return errorResponse(res, statusCode, error.message);
+    return errorResponse(res, statusCode, error);
   }
 };
 
