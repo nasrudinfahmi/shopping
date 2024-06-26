@@ -6,7 +6,7 @@ import sellerRoutes from "../routes/sellerRoutes.js";
 import productRoutes from "../routes/productRoutes.js";
 import paymentRoutes from "../routes/paymentRoutes.js";
 import cartRoutes from "../routes/cartRoutes.js";
-import serverless from "serverless-http";
+// import serverless from "serverless-http";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,9 +32,9 @@ app.use("/data/products", productRoutes);
 app.use("/data/payment", paymentRoutes);
 app.use("/data/cart", cartRoutes);
 
-const handler = serverless(app);
+// const handler = serverless(app);
 
-export default handler;
+// export default handler;
 
 // if (process.env.NODE_ENV !== "production") {
 app.listen(PORT, () => {
