@@ -5,11 +5,7 @@ import admin from "firebase-admin";
 import config from "../../config/firebaseAdminConfig.js";
 
 initializeApp({
-  credential: cert({
-    clientEmail: config.client_email,
-    privateKey: config.private_key,
-    projectId: config.project_id,
-  }),
+  credential: cert(config),
   storageBucket: process.env.BUCKET_NAME,
 });
 
